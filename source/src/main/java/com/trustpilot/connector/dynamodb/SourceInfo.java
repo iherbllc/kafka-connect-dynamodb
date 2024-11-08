@@ -2,13 +2,16 @@ package com.trustpilot.connector.dynamodb;
 
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.trustpilot.connector.dynamodb.utils.ByteBufferTypeAdapter;
 import com.trustpilot.connector.dynamodb.utils.SchemaNameAdjuster;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaBuilder;
 import org.apache.kafka.connect.data.Struct;
 
 import java.lang.reflect.Type;
+import java.nio.ByteBuffer;
 import java.time.Clock;
 import java.time.Instant;
 import java.util.LinkedHashMap;
@@ -23,7 +26,10 @@ import java.util.Map;
  * It's also stored together with each event value sent to Kafka topic for traceability.
  */
 public class SourceInfo {
-    private static final Gson gson = new Gson();
+    private static final Gson gson = new GsonBuilder()
+            // use `ByteBufferTypeAdapter` to support `AttributeValue` serde (i.e. `exclusiveStartKey`)
+            .registerTypeAdapter(ByteBuffer.class, new ByteBufferTypeAdapter())
+            .create();
     private final Clock clock;
 
     public final String version;
