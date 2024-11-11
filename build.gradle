@@ -56,7 +56,7 @@ allprojects {
         testCompile "org.testcontainers:kafka:1.15.0-rc2"
         testCompile "org.testcontainers:mockserver:1.15.0-rc2"
         testCompile "org.mock-server:mockserver-client-java:5.11.1"
-        testCompile "com.google.code.gson:gson:2.8.6"
+        testCompile "com.google.code.gson:gson:2.11.0"
 
         testCompile group: 'org.mockito', name: 'mockito-junit-jupiter', version: '2.26.0'
         compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.15.0'

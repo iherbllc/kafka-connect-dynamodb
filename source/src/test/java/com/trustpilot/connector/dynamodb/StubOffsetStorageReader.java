@@ -1,7 +1,7 @@
 package com.trustpilot.connector.dynamodb;
 
 import org.apache.kafka.connect.storage.OffsetStorageReader;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import java.lang.UnsupportedOperationException;
 
 import java.util.Collection;
 import java.util.Map;
@@ -25,6 +25,6 @@ public class StubOffsetStorageReader implements OffsetStorageReader {
 
     @Override
     public <T> Map<Map<String, T>, Map<String, Object>> offsets(Collection<Map<String, T>> partitions) {
-        throw new NotImplementedException();
+        throw new UnsupportedOperationException();
     }
 }
