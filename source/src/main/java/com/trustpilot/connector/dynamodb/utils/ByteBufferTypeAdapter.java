@@ -2,8 +2,6 @@ package com.trustpilot.connector.dynamodb.utils;
 
 import com.amazonaws.util.Base64;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonToken;
@@ -19,8 +17,7 @@ public class ByteBufferTypeAdapter extends TypeAdapter<ByteBuffer> {
 
     @Override
     public void write(JsonWriter jsonWriter, ByteBuffer buffer) throws IOException {
-        if (buffer == null)
-        {
+        if (buffer == null) {
             jsonWriter.nullValue();
         }
         else {
@@ -33,13 +30,11 @@ public class ByteBufferTypeAdapter extends TypeAdapter<ByteBuffer> {
 
     @Override
     public ByteBuffer read(JsonReader jsonReader) throws IOException {
-        if (jsonReader.peek() == JsonToken.NULL)
-        {
+        if (jsonReader.peek() == JsonToken.NULL) {
             jsonReader.nextNull();
             return null;
         }
-        else if (jsonReader.peek() == JsonToken.BEGIN_OBJECT)
-        {
+        else if (jsonReader.peek() == JsonToken.BEGIN_OBJECT) {
             // A reasonable, limited effort for this use case to rehydrate a json formatted object representing
             // the internal properties of a ByteBuffer. This is for backwards compatibility with byte buffers
             // serialized using default gson serializers (i.e. ones that pluck out internal fields of types), which
@@ -47,8 +42,7 @@ public class ByteBufferTypeAdapter extends TypeAdapter<ByteBuffer> {
             // and 2) accessing these internal properties breaks on newer jvms enforcing stricktly
             // java modules security boundaries and it's best to avoid hacks to open modules up.
             Map properties = GSON.fromJson(jsonReader, Map.class);
-            if (!properties.containsKey("hb"))
-            {
+            if (!properties.containsKey("hb")) {
                 throw new RuntimeException("Unexpected ByteBuffer encoding. Does not contain a 'hb' field.");
             }
 

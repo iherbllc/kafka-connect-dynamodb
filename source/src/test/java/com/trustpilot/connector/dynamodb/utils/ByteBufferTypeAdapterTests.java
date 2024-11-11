@@ -18,8 +18,7 @@ public class ByteBufferTypeAdapterTests {
             .create();
 
     @Test
-    public void shouldSerializeByteBufferAttributeValue()
-    {
+    public void shouldSerializeByteBufferAttributeValue() {
         byte[] bytes = "sajdlfjaslkjflsajflkasjflkaj".getBytes(StandardCharsets.UTF_8);
         ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
 
@@ -32,8 +31,7 @@ public class ByteBufferTypeAdapterTests {
     }
 
     @Test
-    public void shouldDeserializeByteBufferAttributeValue()
-    {
+    public void shouldDeserializeByteBufferAttributeValue() {
         String json = "{\"b\": \"c2FqZGxmamFzbGtqZmxzYWpmbGthc2pmbGthag==\"}";
         AttributeValue av = gson.fromJson(json, AttributeValue.class);
 
@@ -41,8 +39,7 @@ public class ByteBufferTypeAdapterTests {
     }
 
     @Test
-    public void shouldDeserializeByteBufferAttributeValueFromRaw()
-    {
+    public void shouldDeserializeByteBufferAttributeValueFromRaw() {
         // Handle the case where we are loading a "legacy" json encoded ByteBuffer
         // that contains internal fields (
         String legacyByteBufferJson = "{\"b\":{\"hb\":[115,97,106,100,108,102,106,97,115,108,107,106,102,108,115,97,106,102,108,107,97,115,106,102,108,107,97,106],\"offset\":0,\"isReadOnly\":false,\"bigEndian\":true,\"nativeByteOrder\":false,\"mark\":-1,\"position\":0,\"limit\":28,\"capacity\":28,\"address\":0}}";
@@ -52,8 +49,7 @@ public class ByteBufferTypeAdapterTests {
     }
 
     @Test
-    public void shouldSerializeNullByteBufferAttributeValue()
-    {
+    public void shouldSerializeNullByteBufferAttributeValue() {
         AttributeValue av = new AttributeValue();
 
         JsonElement jsonTree = gson.toJsonTree(av);
@@ -61,16 +57,14 @@ public class ByteBufferTypeAdapterTests {
     }
 
     @Test
-    public void shouldDeserializeNullByteBufferAttributeValue()
-    {
+    public void shouldDeserializeNullByteBufferAttributeValue() {
         String json = "{\"b\": null}";
         AttributeValue av = gson.fromJson(json, AttributeValue.class);
         assertNull(av.getB());
     }
 
     @Test
-    public void shouldSerializeEmptyByteBufferAttributeValue()
-    {
+    public void shouldSerializeEmptyByteBufferAttributeValue() {
         AttributeValue av = new AttributeValue();
         av.setB(ByteBuffer.allocate(0));
 
@@ -80,8 +74,7 @@ public class ByteBufferTypeAdapterTests {
     }
 
     @Test
-    public void shouldDeserializeEmptyByteBufferAttributeValue()
-    {
+    public void shouldDeserializeEmptyByteBufferAttributeValue() {
         String json = "{\"b\": \"\"}";
         AttributeValue av = gson.fromJson(json, AttributeValue.class);
         assertEquals(0, av.getB().capacity());
